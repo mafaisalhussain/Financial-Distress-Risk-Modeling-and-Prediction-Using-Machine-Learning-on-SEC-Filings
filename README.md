@@ -1,112 +1,116 @@
 # Financial-Distress-Risk-Modeling-and-Prediction-Using-Machine-Learning-on-SEC-Filings
 
-1. Data Ingestion
+# Financial Distress Risk Modeling Pipeline
+
+This project implements an end-to-end machine learning pipeline to build an early-warning financial distress prediction system using structured SEC filings data.
+
+---
+
+## 1. Data Ingestion
 
 Source: U.S. Securities and Exchange Commission (SEC) – EDGAR Database
 
-Retrieve structured financial statement data via SEC EDGAR API
+- Retrieve structured financial statement data via SEC EDGAR API
+- Parse XBRL data from:
+  - Form 10-K (Annual Reports)
+  - Form 10-Q (Quarterly Reports)
+- Extract core financial variables (assets, liabilities, revenue, net income, cash flow)
 
-Parse XBRL data from:
+Output: Raw firm-level financial dataset
 
-Form 10-K (Annual Reports)
+---
 
-Form 10-Q (Quarterly Reports)
+## 2. Data Cleaning and Structuring
 
-Extract core financial statement variables
+- Normalize financial tags across companies
+- Handle missing values and inconsistencies
+- Align fiscal reporting periods
+- Construct a time-indexed company-year panel dataset
 
-Output: Raw firm-level financial data
+Output: Clean structured firm-year dataset
 
-2. Data Cleaning & Structuring
+---
 
-Normalize financial tags across companies
+## 3. Feature Engineering
 
-Handle missing values and inconsistencies
+Generate financial ratios capturing leverage, profitability, liquidity, and growth:
 
-Align fiscal reporting periods
-
-Construct a time-indexed company-year panel dataset
-
-Output: Clean, structured firm-year dataset
-
-3. Feature Engineering
-
-Generate financially meaningful ratios capturing leverage, profitability, liquidity, and growth:
-
-Debt-to-Assets Ratio
-
-Debt-to-Equity Ratio
-
-Return on Assets (ROA)
-
-Net Profit Margin
-
-Cash Flow to Liabilities
-
-Revenue Growth Rate
+- Debt-to-Assets Ratio
+- Debt-to-Equity Ratio
+- Return on Assets (ROA)
+- Net Profit Margin
+- Cash Flow to Liabilities
+- Revenue Growth Rate
 
 Output: Feature matrix (X)
 
-4. Label Generation
+---
 
-Identify financial distress or bankruptcy-related events
+## 4. Label Generation
 
-Create forward-looking labels (t → t+1)
-
-Define binary classification target:
-
-0 = Financially Healthy
-
-1 = Financially Distressed
+- Identify financial distress or bankruptcy-related events
+- Create forward-looking labels (t → t+1)
+- Define binary classification target:
+  - 0 = Financially Healthy
+  - 1 = Financially Distressed
 
 Output: Target variable (y)
 
-5. Time-Aware Train/Test Split
+---
 
-Split data chronologically
+## 5. Time-Aware Train/Test Split
 
-Prevent look-ahead bias
+- Split dataset chronologically
+- Prevent look-ahead bias
+- Simulate real-world forecasting conditions
 
-Simulate real-world forecasting deployment
+---
 
-6. Model Training
+## 6. Model Training
 
 Train supervised binary classification models:
 
-Logistic Regression (baseline)
+- Logistic Regression (baseline)
+- Random Forest
+- Gradient Boosting
+- XGBoost
 
-Random Forest
+---
 
-Gradient Boosting
+## 7. Model Evaluation
 
-XGBoost
+Evaluate performance using:
 
-7. Model Evaluation
+- ROC-AUC
+- Precision
+- Recall
+- F1-Score
+- Precision-Recall Curve
 
-Evaluate predictive performance using:
+Special consideration is given to class imbalance due to rare distress events.
 
-ROC-AUC
+---
 
-Precision
+## 8. Risk Scoring System
 
-Recall
-
-F1-Score
-
-Precision-Recall Curve
-
-Special consideration is given to class imbalance due to the rarity of distress events.
-
-8. Risk Scoring System
-
-Generate probabilistic distress scores (0–1 scale)
-
-Classify firms into High-Risk / Low-Risk categories
-
-Extract feature importance for interpretability
+- Generate probabilistic distress scores (0–1 scale)
+- Classify firms into High-Risk / Low-Risk categories
+- Extract feature importance for interpretability
 
 Final Output:
-A deployable financial risk prediction framework capable of early-warning distress detection.
+A deployable financial distress prediction framework capable of early-warning risk detection.
 
-Pipeline Overview
+---
 
-SEC EDGAR → Data Cleaning → Feature Engineering → Labeling → Time-Aware Split → Model Training → Evaluation → Risk Scoring Output
+## Pipeline Summary
+
+SEC EDGAR  
+→ Data Cleaning  
+→ Feature Engineering  
+→ Labeling  
+→ Time-Aware Split  
+→ Model Training  
+→ Evaluation  
+→ Risk Scoring
+
+
